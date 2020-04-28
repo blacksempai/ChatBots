@@ -7,16 +7,14 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Bot extends TelegramLongPollingBot {
 
     private static final String TOKEN = "787874764:AAH6ddP1juftDlTNynqUXHoYZYu7MJzdZfQ";
     private static final String USERNAME = "AndryushaReshetilovskiyBot";
-    private HashMap<Long,Integer> stageOfResumeByChatId = new HashMap<>();
-    private HashMap<Long,String> resumeByChatId = new HashMap<>();
+    private HashMap<Long, Integer> stageOfResumeByChatId = new HashMap<>();
+    private HashMap<Long, String> resumeByChatId = new HashMap<>();
 
     public static void main(String[] args) {
         ApiContextInitializer.init();
@@ -30,15 +28,15 @@ public class Bot extends TelegramLongPollingBot {
 
     public void onUpdateReceived(Update update) {
         Message message = update.getMessage();
-        if(stageOfResumeByChatId.get(message.getChatId())!=null&&stageOfResumeByChatId.get(message.getChatId())>0){
-            if(message !=null && message.hasText()){
-                switch (message.getText()){
+        if (stageOfResumeByChatId.get(message.getChatId()) != null && stageOfResumeByChatId.get(message.getChatId()) > 0) {
+            if (message != null && message.hasText()) {
+                switch (message.getText()) {
                     case "/help":
-                        stageOfResumeByChatId.put(message.getChatId(),0);
-                        sendMsg(message,"test passed");
+                        stageOfResumeByChatId.put(message.getChatId(), 0);
+                        sendMsg(message, "test passed");
                         break;
                     case "/resume":
-                        stageOfResumeByChatId.put(message.getChatId(),1);
+                        stageOfResumeByChatId.put(message.getChatId(), 1);
                         getResume(message);
                         break;
                     default:
@@ -46,15 +44,14 @@ public class Bot extends TelegramLongPollingBot {
                         break;
                 }
             }
-        }
-        else{
-            if(message !=null && message.hasText()){
-                switch (message.getText()){
+        } else {
+            if (message != null && message.hasText()) {
+                switch (message.getText()) {
                     case "/help":
-                        sendMsg(message,"test passed");
+                        sendMsg(message, "test passed");
                         break;
                     case "/resume":
-                        stageOfResumeByChatId.put(message.getChatId(),1);
+                        stageOfResumeByChatId.put(message.getChatId(), 1);
                         getResume(message);
                         break;
                     default:
@@ -64,7 +61,7 @@ public class Bot extends TelegramLongPollingBot {
         }
     }
 
-    private void sendMsg(Message message,String reply){
+    private void sendMsg(Message message, String reply) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
         sendMessage.setChatId(message.getChatId());
@@ -76,58 +73,58 @@ public class Bot extends TelegramLongPollingBot {
         }
     }
 
-    private void getResume(Message message){
+    private void getResume(Message message) {
         long chatId = message.getChatId();
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
         sendMessage.setChatId(chatId);
-        switch (stageOfResumeByChatId.get(chatId)){
+        switch (stageOfResumeByChatId.get(chatId)) {
             case 1:
-            sendMessage.setText("ПІБ");
-            try {
-                execute(sendMessage);
-                stageOfResumeByChatId.put(chatId,2);
-            } catch (TelegramApiException e) {
-                e.printStackTrace();
-            }
-            break;
+                sendMessage.setText("ПІБ");
+                try {
+                    execute(sendMessage);
+                    stageOfResumeByChatId.put(chatId, 2);
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
+                break;
             case 2:
-                resumeByChatId.put(chatId,message.getText());
+                resumeByChatId.put(chatId, message.getText());
                 sendMessage.setText("Полный возраст");
                 try {
                     execute(sendMessage);
-                    stageOfResumeByChatId.put(chatId,3);
+                    stageOfResumeByChatId.put(chatId, 3);
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
                 }
                 break;
             case 3:
-                resumeByChatId.put(chatId,resumeByChatId.get(chatId)+" : "+message.getText());
+                resumeByChatId.put(chatId, resumeByChatId.get(chatId) + " : " + message.getText());
                 sendMessage.setText("Действующий номер телефона");
                 try {
                     execute(sendMessage);
-                    stageOfResumeByChatId.put(chatId,4);
+                    stageOfResumeByChatId.put(chatId, 4);
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
                 }
                 break;
             case 4:
-                resumeByChatId.put(chatId,resumeByChatId.get(chatId)+" : "+message.getText());
+                resumeByChatId.put(chatId, resumeByChatId.get(chatId) + " : " + message.getText());
                 sendMessage.setText("Логин в Skype");
                 try {
                     execute(sendMessage);
-                    stageOfResumeByChatId.put(chatId,5);
+                    stageOfResumeByChatId.put(chatId, 5);
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
                 }
                 break;
             case 5:
-                resumeByChatId.put(chatId,resumeByChatId.get(chatId)+" : "+message.getText());
+                resumeByChatId.put(chatId, resumeByChatId.get(chatId) + " : " + message.getText());
                 sendMessage.setText("Резюме готово");
                 sendResumeToOwner(chatId);
                 try {
                     execute(sendMessage);
-                    stageOfResumeByChatId.put(chatId,0);
+                    stageOfResumeByChatId.put(chatId, 0);
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
                 }
@@ -135,7 +132,7 @@ public class Bot extends TelegramLongPollingBot {
         }
     }
 
-    private void sendResumeToOwner(long chatId){
+    private void sendResumeToOwner(long chatId) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(588484700L);
         sendMessage.setText(resumeByChatId.get(chatId));
@@ -145,6 +142,7 @@ public class Bot extends TelegramLongPollingBot {
             e.printStackTrace();
         }
     }
+
     public String getBotUsername() {
         return USERNAME;
     }
