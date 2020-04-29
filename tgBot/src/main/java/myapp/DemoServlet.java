@@ -16,24 +16,29 @@
 
 package myapp;
 
+import myapp.bot.Bot;
+import myapp.model.Resume;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 
 import java.io.IOException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class DemoServlet extends HttpServlet {
+  private Bot tgBot;
 
   @Override
   public void init() throws ServletException {
+    tgBot = new Bot();
     ApiContextInitializer.init();
     TelegramBotsApi bot = new TelegramBotsApi();
     try {
-      bot.registerBot(new Bot());
+      bot.registerBot(tgBot);
     } catch (TelegramApiRequestException e) {
       e.printStackTrace();
     }
@@ -41,8 +46,19 @@ public class DemoServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp)
-      throws IOException {
-    resp.setContentType("text/plain");
-    resp.getWriter().println("<h1>Veniamin WebSite</h1>");
+          throws ServletException, IOException {
+    doPost(req,resp);
+  }
+
+  @Override
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    Resume resume = new Resume();
+    resume.setFullName(req.getParameter("fullName"));
+    resume.setAge(req.getParameter("age"));
+    resume.setTelephone(req.getParameter("telephone"));
+    resume.setSkypeLogin(req.getParameter("skypeLogin"));
+    tgBot.sendResumeToOwner(resume);
+    RequestDispatcher dispatcher = req.getRequestDispatcher("/resumefin.html");
+    dispatcher.forward(req,resp);
   }
 }
