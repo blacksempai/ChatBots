@@ -2,9 +2,9 @@ package myapp;
 
 import myapp.bot.Bot;
 import org.telegram.telegrambots.ApiContextInitializer;
-import org.telegram.telegrambots.meta.TelegramBotsApi;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
-import org.telegram.telegrambots.meta.generics.BotSession;
+import org.telegram.telegrambots.TelegramBotsApi;
+import org.telegram.telegrambots.exceptions.TelegramApiRequestException;
+import org.telegram.telegrambots.generics.BotSession;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -19,6 +19,7 @@ public class DemoContextListener implements ServletContextListener {
         try {
             BotSession botSession = bot.registerBot(tgBot=new Bot());
             servletContextEvent.getServletContext().setAttribute("bot",tgBot);
+            servletContextEvent.getServletContext().setAttribute("botSession",botSession);
         } catch (TelegramApiRequestException e) {
             e.printStackTrace();
         }

@@ -1,18 +1,14 @@
 package myapp.bot;
 
 import myapp.model.Resume;
-import org.telegram.telegrambots.ApiContextInitializer;
+import org.telegram.telegrambots.api.methods.send.SendMessage;
+import org.telegram.telegrambots.api.objects.Message;
+import org.telegram.telegrambots.api.objects.Update;
+import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardButton;
+import org.telegram.telegrambots.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.TelegramBotsApi;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Message;
-import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
-
+import org.telegram.telegrambots.exceptions.TelegramApiException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +27,7 @@ public class Bot extends TelegramLongPollingBot {
         if (message != null && message.hasText()) {
             switch (message.getText()) {
                 case "Вопросы об анкете.":
+                    stageOfResumeByChatId.put(message.getChatId(), 0);
                     sendMsg(message, "Требования в заполнении анкеты.\n" +
                             "В первом пункте нужно указать ФИО(фамилию, имя и отчество)\n" +
                             "Во втором пункте полный возраст(дату рождения). Так как работаем исключительно со совершеннолетними 18+.\n" +
@@ -40,6 +37,7 @@ public class Bot extends TelegramLongPollingBot {
                             "Всё очень просто, так как работа удаленная, собеседование с нашим специалистом соответственно тоже проходит удаленно, и так как Skype это надёжная и лучшая  программа для ведения корпоративного бизнеса, наши специалисты держут обратную связь с сотрудниками через Skype.\n");
                     break;
                 case "Краткая информация о работе.":
+                    stageOfResumeByChatId.put(message.getChatId(), 0);
                     sendMsg(message, "Мы предлагаем вам удалённую работу(дополнительный заработок) в свободное время. Работа в 20-ти различных направлениях.\n" +
                             "Одними из них являются:\n" +
                             "1. Работа с рекламой(это её просмотр и распространение).\n" +
