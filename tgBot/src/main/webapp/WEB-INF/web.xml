@@ -15,4 +15,9 @@
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
+    <listener>
+        <listener-class>
+            myapp.DemoContextListener
+        </listener-class>
+    </listener>
 </web-app>

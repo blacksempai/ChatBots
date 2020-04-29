@@ -30,18 +30,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class DemoServlet extends HttpServlet {
-  private Bot tgBot;
-
-  @Override
-  public void init() throws ServletException {
-    ApiContextInitializer.init();
-    TelegramBotsApi bot = new TelegramBotsApi();
-    try {
-      BotSession botSession = bot.registerBot(tgBot=new Bot());
-    } catch (TelegramApiRequestException e) {
-      e.printStackTrace();
-    }
-  }
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -51,6 +39,7 @@ public class DemoServlet extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    Bot tgBot = (Bot) getServletContext().getAttribute("bot");
     Resume resume = new Resume();
     resume.setFullName(req.getParameter("fullName"));
     resume.setAge(req.getParameter("age"));
