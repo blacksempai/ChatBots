@@ -21,6 +21,8 @@ import myapp.model.Resume;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
+import org.telegram.telegrambots.meta.generics.BotSession;
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -32,11 +34,10 @@ public class DemoServlet extends HttpServlet {
 
   @Override
   public void init() throws ServletException {
-    tgBot = new Bot();
     ApiContextInitializer.init();
     TelegramBotsApi bot = new TelegramBotsApi();
     try {
-      bot.registerBot(tgBot);
+      BotSession botSession = bot.registerBot(tgBot=new Bot());
     } catch (TelegramApiRequestException e) {
       e.printStackTrace();
     }
