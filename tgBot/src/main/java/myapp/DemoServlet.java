@@ -21,9 +21,7 @@ import myapp.model.Resume;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
-
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -58,7 +56,7 @@ public class DemoServlet extends HttpServlet {
     resume.setTelephone(req.getParameter("telephone"));
     resume.setSkypeLogin(req.getParameter("skypeLogin"));
     tgBot.sendResumeToOwner(resume);
-    RequestDispatcher dispatcher = req.getRequestDispatcher("/resumefin.html");
-    dispatcher.forward(req,resp);
+    resp.setContentType("text/html");
+    resp.getWriter().println("<h1>Резюме успешно заполнено!!</h1>");
   }
 }
