@@ -19,8 +19,8 @@ import java.util.List;
 
 public class Bot extends TelegramLongPollingBot {
 
-    private static final String TOKEN = "787874764:AAH6ddP1juftDlTNynqUXHoYZYu7MJzdZfQ";
-    private static final String USERNAME = "AndryushaReshetilovskiyBot";
+    private static final String TOKEN = "1116825574:AAHqbkDw9HiiAcN8avgb4yHXIjVobhMV72g";
+    private static final String USERNAME = "VladimirBot";
     private static final long OWNER_ID = 588484700L;
     private HashMap<Long, Integer> stageOfResumeByChatId = new HashMap<>();
     private HashMap<Long, Resume> resumeByChatId = new HashMap<>();
