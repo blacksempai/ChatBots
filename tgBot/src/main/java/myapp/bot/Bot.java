@@ -65,6 +65,7 @@ public class Bot extends TelegramLongPollingBot {
                         getResume(message);
                     else if (message.getChatId().equals(owner.getId()))
                         sendResumesFromWebsite();
+                    else
                         sendMsg(message, "Помощь в заполнении анкеты");
                     break;
             }

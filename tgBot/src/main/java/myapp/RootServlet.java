@@ -28,6 +28,8 @@ public class RootServlet extends HttpServlet {
     }
 
     private boolean isValid(HttpServletRequest req){
+        if(req.getParameter("login")==null||req.getParameter("password")==null)
+            return false;
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         String adminLogin = (String) getServletContext().getAttribute("admin_login");

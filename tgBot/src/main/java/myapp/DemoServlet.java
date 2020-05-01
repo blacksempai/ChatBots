@@ -33,7 +33,8 @@ public class DemoServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp)
           throws ServletException, IOException {
-    doPost(req,resp);
+    RequestDispatcher dispatcher = req.getRequestDispatcher("/");
+    dispatcher.forward(req,resp);
   }
 
   @Override
@@ -43,7 +44,7 @@ public class DemoServlet extends HttpServlet {
     //tgBot.sendResumeToOwner(resume);
     ResumesFromWebsiteHolder.getResumes().add(resume);
     resp.setContentType("text/html");
-    RequestDispatcher dispatcher = req.getRequestDispatcher("/success.html");
+    RequestDispatcher dispatcher = req.getRequestDispatcher("success.html");
     dispatcher.forward(req,resp);
   }
 

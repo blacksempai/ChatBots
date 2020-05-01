@@ -20,6 +20,17 @@
         <servlet-name>root</servlet-name>
         <url-pattern>/root</url-pattern>
     </servlet-mapping>
+
+    <filter>
+        <filter-name>dataFilter</filter-name>
+        <filter-class>org.o7planning.tutorial.servletfilter.LogFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>dataFilter</filter-name>
+        <url-pattern>/data</url-pattern>
+    </filter-mapping>
+
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
