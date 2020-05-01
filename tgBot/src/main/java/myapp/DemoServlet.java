@@ -39,9 +39,9 @@ public class DemoServlet extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    //BotWebSender tgBot = (BotWebSender) getServletContext().getAttribute("bot");
+    BotWebSender tgBot = (BotWebSender) getServletContext().getAttribute("bot");//to delete
     Resume resume = getResumeFromRequest(req);
-    //tgBot.sendResumeToOwner(resume);
+    tgBot.sendResumeToOwner(resume);//to delete
     ResumesFromWebsiteHolder.getResumes().add(resume);
     resp.setContentType("text/html");
     RequestDispatcher dispatcher = req.getRequestDispatcher("/success.html");

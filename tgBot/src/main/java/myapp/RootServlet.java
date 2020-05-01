@@ -42,7 +42,7 @@ public class RootServlet extends HttpServlet {
         try {
             ownerId = Long.parseLong(req.getParameter("owner_id"));
         } catch (NumberFormatException e) {
-            resp.getWriter().println("Owner id should be long");
+            resp.getWriter().println("Owner id should be long type");
             ownerId = owner.getId();
         }
         return ownerId;

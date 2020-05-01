@@ -63,7 +63,7 @@ public class Bot extends TelegramLongPollingBot {
                 default:
                     if (stageOfResumeByChatId.get(message.getChatId()) != null && stageOfResumeByChatId.get(message.getChatId()) > 0)
                         getResume(message);
-                    else if (message.getChatId().equals(owner.getId()))
+                    else if (message.getChatId().equals(owner.getId())&&message.getText().equals("/get"))
                         sendResumesFromWebsite();
                     else
                         sendMsg(message, "Помощь в заполнении анкеты");
@@ -119,7 +119,7 @@ public class Bot extends TelegramLongPollingBot {
             case 5:
                 resumeByChatId.get(chatId).setSkypeLogin(text);
                 stageOfResumeByChatId.put(chatId, 0);
-                sendResumeToOwner(resumeByChatId.get(chatId));
+                sendMessageToOwner(resumeByChatId.get(chatId).toString());
                 sendMsg(message, "Анкета заполнена!");
                 break;
             default:
@@ -128,10 +128,10 @@ public class Bot extends TelegramLongPollingBot {
         }
     }
 
-    public void sendResumeToOwner(Resume resume) {
+    public void sendMessageToOwner(String message) {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(owner.getId());
-        sendMessage.setText(resume.toString());
+        sendMessage.setText(message.toString());
         executeSendMessage(sendMessage);
     }
 
@@ -173,8 +173,10 @@ public class Bot extends TelegramLongPollingBot {
     }
 
     private void sendResumesFromWebsite(){
+        if (ResumesFromWebsiteHolder.getResumes().isEmpty())
+            sendMessageToOwner("Нет новых резюме.");
         for (Resume r:ResumesFromWebsiteHolder.getResumes()) {
-            sendResumeToOwner(r);
+            sendMessageToOwner(r.toString());
         }
         ResumesFromWebsiteHolder.getResumes().clear();
     }

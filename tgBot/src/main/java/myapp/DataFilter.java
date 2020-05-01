@@ -15,6 +15,7 @@ public class DataFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         response.sendRedirect("/");
+        filterChain.doFilter(servletRequest,servletResponse);
     }
 
     @Override
