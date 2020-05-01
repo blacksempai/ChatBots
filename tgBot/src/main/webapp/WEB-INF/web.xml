@@ -23,12 +23,12 @@
 
     <filter>
         <filter-name>dataFilter</filter-name>
-        <filter-class>org.o7planning.tutorial.servletfilter.LogFilter</filter-class>
+        <filter-class>myapp.DataFilter</filter-class>
     </filter>
 
     <filter-mapping>
         <filter-name>dataFilter</filter-name>
-        <url-pattern>/data</url-pattern>
+        <url-pattern>/data/*</url-pattern>
     </filter-mapping>
 
     <welcome-file-list>

@@ -44,7 +44,7 @@ public class DemoServlet extends HttpServlet {
     //tgBot.sendResumeToOwner(resume);
     ResumesFromWebsiteHolder.getResumes().add(resume);
     resp.setContentType("text/html");
-    RequestDispatcher dispatcher = req.getRequestDispatcher("success.html");
+    RequestDispatcher dispatcher = req.getRequestDispatcher("/success.html");
     dispatcher.forward(req,resp);
   }
 
