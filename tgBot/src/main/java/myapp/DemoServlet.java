@@ -17,6 +17,7 @@
 package myapp;
 
 import myapp.bot.Bot;
+import myapp.bot.BotWebSender;
 import myapp.model.Resume;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -35,7 +36,7 @@ public class DemoServlet extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    Bot tgBot = (Bot) getServletContext().getAttribute("bot");
+    BotWebSender tgBot = (BotWebSender) getServletContext().getAttribute("bot");
     Resume resume = getResumeFromRequest(req);
     tgBot.sendResumeToOwner(resume);
     resp.setContentType("text/html");

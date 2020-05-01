@@ -20,8 +20,11 @@ public class RootServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (isValid(req)){
             Owner owner = Owner.getInstance();
-            owner.setId(getOwnerId(req));
+            owner.setId(getOwnerId(req,resp));
+            resp.getWriter().println("Everything is cool");
         }
+        else
+        resp.getWriter().println("You are not Admin");
     }
 
     private boolean isValid(HttpServletRequest req){
@@ -32,11 +35,12 @@ public class RootServlet extends HttpServlet {
         return login.equals(adminLogin) && password.equals(adminPassword);
     }
 
-    private long getOwnerId(HttpServletRequest req){
+    private long getOwnerId(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         long ownerId;
         try {
             ownerId = Long.parseLong(req.getParameter("owner_id"));
         } catch (NumberFormatException e) {
+            resp.getWriter().println("Owner id should be long");
             ownerId = owner.getId();
         }
         return ownerId;

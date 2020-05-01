@@ -14,7 +14,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>root</servlet-name>
-        <servlet-class>myapp.DemoServlet</servlet-class>
+        <servlet-class>myapp.RootServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>root</servlet-name>
