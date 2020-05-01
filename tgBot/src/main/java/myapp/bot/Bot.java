@@ -1,5 +1,6 @@
 package myapp.bot;
 
+import myapp.model.Owner;
 import myapp.model.Resume;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Message;
@@ -17,9 +18,15 @@ public class Bot extends TelegramLongPollingBot {
 
     private static final String TOKEN = "1116825574:AAHqbkDw9HiiAcN8avgb4yHXIjVobhMV72g";
     private static final String USERNAME = "VladimirBot";
-    private static final long OWNER_ID = 588484700L;
-    private HashMap<Long, Integer> stageOfResumeByChatId = new HashMap<>();
-    private HashMap<Long, Resume> resumeByChatId = new HashMap<>();
+    private Owner owner;
+    private HashMap<Long, Integer> stageOfResumeByChatId;
+    private HashMap<Long, Resume> resumeByChatId;
+
+    public Bot() {
+        resumeByChatId = new HashMap<>();
+        stageOfResumeByChatId = new HashMap<>();
+        owner = Owner.getInstance();
+    }
 
     public void onUpdateReceived(Update update) {
         Message message = update.getMessage();
@@ -118,7 +125,7 @@ public class Bot extends TelegramLongPollingBot {
 
     public void sendResumeToOwner(Resume resume) {
         SendMessage sendMessage = new SendMessage();
-        sendMessage.setChatId(OWNER_ID);
+        sendMessage.setChatId(owner.getId());
         sendMessage.setText(resume.toString());
         executeSendMessage(sendMessage);
     }
@@ -168,3 +175,4 @@ public class Bot extends TelegramLongPollingBot {
         return TOKEN;
     }
 }
+//mvn appengine:deploy

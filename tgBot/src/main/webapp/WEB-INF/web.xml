@@ -10,7 +10,15 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>demo</servlet-name>
-        <url-pattern>/demo</url-pattern>
+        <url-pattern>/submit</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>root</servlet-name>
+        <servlet-class>myapp.DemoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>root</servlet-name>
+        <url-pattern>/root</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>

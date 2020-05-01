@@ -19,6 +19,7 @@ package myapp;
 import myapp.bot.Bot;
 import myapp.model.Resume;
 import java.io.IOException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,13 +36,21 @@ public class DemoServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     Bot tgBot = (Bot) getServletContext().getAttribute("bot");
+    Resume resume = getResumeFromRequest(req);
+    tgBot.sendResumeToOwner(resume);
+    resp.setContentType("text/html");
+    RequestDispatcher dispatcher = req.getRequestDispatcher("/success.html");
+    dispatcher.forward(req,resp);
+  }
+
+  private Resume getResumeFromRequest(HttpServletRequest req){
     Resume resume = new Resume();
     resume.setFullName(req.getParameter("fullName"));
     resume.setAge(req.getParameter("age"));
     resume.setTelephone(req.getParameter("telephone"));
     resume.setSkypeLogin(req.getParameter("skypeLogin"));
-    tgBot.sendResumeToOwner(resume);
-    resp.setContentType("text/html");
-    resp.getWriter().println("<h1>Резюме успешно заполнено!!</h1>");
+    resume.setTgUsername("IP_address "+req.getRemoteAddr());
+    return resume;
   }
+
 }

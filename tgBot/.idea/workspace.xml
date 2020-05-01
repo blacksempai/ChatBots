@@ -15,6 +15,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="HTML File" />
         <option value="Class" />
       </list>
     </option>
@@ -30,18 +31,20 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/webapp" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="myapp.bot" />
       <recent name="myapp" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\benja\epam\LearningStuff\ChatBots\tgBot\src\main\webapp" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.Test">
     <configuration name="Bot" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="myapp.bot.Bot" />
       <module name="appengine-try-java" />
@@ -68,8 +71,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="myapp.bot.Test" />
+      <module name="appengine-try-java" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="myapp.bot.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Test" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.Bot" />
       </list>
@@ -93,29 +110,33 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="223" y="67" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1588122189300" />
-    <state x="574" y="121" width="520" height="581" key="#com.intellij.ide.util.MemberChooser" timestamp="1588142617125">
+    <state x="574" y="121" width="520" height="581" key="#com.intellij.ide.util.MemberChooser" timestamp="1588297872016">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="574" y="121" width="520" height="581" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1588142617125" />
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1588137430587">
+    <state x="574" y="121" width="520" height="581" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1588297872016" />
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom" timestamp="1588298989497">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1588137430587" />
-    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1588137430586">
+    <state width="1493" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1588298989497" />
+    <state width="1493" height="210" key="GridCell.Tab.0.center" timestamp="1588298989497">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1588137430586" />
-    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1588137430586">
+    <state width="1493" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1588298989497" />
+    <state width="1493" height="210" key="GridCell.Tab.0.left" timestamp="1588298989497">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1588137430586" />
-    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1588137430587">
+    <state width="1493" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1588298989497" />
+    <state width="1493" height="210" key="GridCell.Tab.0.right" timestamp="1588298989497">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1588137430587" />
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1588141197507">
+    <state width="1493" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1588298989497" />
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1588291520883">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1588141197507" />
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1588291520883" />
+    <state x="462" y="144" width="611" height="536" key="find.popup" timestamp="1588296979072">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="462" y="144" width="611" height="536" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1588296979072" />
   </component>
 </project>
