@@ -17,8 +17,8 @@ public class DemoContextListener implements ServletContextListener {
         TelegramBotsApi bot = new TelegramBotsApi();
         try {
             bot.registerBot(new Bot());
-            bot.registerBot(tgBot=new BotWebSender());
-            servletContextEvent.getServletContext().setAttribute("bot",tgBot);
+            //bot.registerBot(tgBot=new BotWebSender());
+            //servletContextEvent.getServletContext().setAttribute("bot",tgBot);
         } catch (TelegramApiRequestException e) {
             e.printStackTrace();
         }

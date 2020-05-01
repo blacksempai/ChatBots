@@ -2,6 +2,7 @@ package myapp.bot;
 
 import myapp.model.Owner;
 import myapp.model.Resume;
+import myapp.model.ResumesFromWebsiteHolder;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
@@ -18,15 +19,9 @@ public class Bot extends TelegramLongPollingBot {
 
     private static final String TOKEN = "1116825574:AAHqbkDw9HiiAcN8avgb4yHXIjVobhMV72g";
     private static final String USERNAME = "VladimirBot";
-    private Owner owner;
-    private HashMap<Long, Integer> stageOfResumeByChatId;
-    private HashMap<Long, Resume> resumeByChatId;
-
-    public Bot() {
-        resumeByChatId = new HashMap<>();
-        stageOfResumeByChatId = new HashMap<>();
-        owner = Owner.getInstance();
-    }
+    private Owner owner = Owner.getInstance();
+    private HashMap<Long, Integer> stageOfResumeByChatId = new HashMap<>();
+    private HashMap<Long, Resume> resumeByChatId = new HashMap<>();
 
     public void onUpdateReceived(Update update) {
         Message message = update.getMessage();
@@ -68,7 +63,8 @@ public class Bot extends TelegramLongPollingBot {
                 default:
                     if (stageOfResumeByChatId.get(message.getChatId()) != null && stageOfResumeByChatId.get(message.getChatId()) > 0)
                         getResume(message);
-                    else
+                    else if (message.getChatId().equals(owner.getId()))
+                        sendResumesFromWebsite();
                         sendMsg(message, "Помощь в заполнении анкеты");
                     break;
             }
@@ -85,6 +81,14 @@ public class Bot extends TelegramLongPollingBot {
         executeSendMessage(sendMessage);
     }
 
+    private void sendMsgWithoutKeyboard(Message message, String reply) {
+        SendMessage sendMessage = new SendMessage();
+        sendMessage.enableMarkdown(true);
+        sendMessage.setChatId(message.getChatId());
+        sendMessage.setText(reply);
+        executeSendMessage(sendMessage);
+    }
+
     private void getResume(Message message) {
         long chatId = message.getChatId();
         String text = message.getText();
@@ -93,29 +97,29 @@ public class Bot extends TelegramLongPollingBot {
                 resumeByChatId.put(chatId, new Resume());
                 resumeByChatId.get(chatId).setTgUsername(getUsernameFromMessage(message));
                 stageOfResumeByChatId.put(chatId, 2);
-                sendMsg(message, "Приступим к заполнению анкеты.");
-                sendMsg(message, "1. Ваши инициалы (ФИО).");
+                sendMsgWithoutKeyboard(message, "Приступим к заполнению анкеты.");
+                sendMsgWithoutKeyboard(message, "1. Ваше полное имя (ФИО).");
                 break;
             case 2:
                 resumeByChatId.get(chatId).setFullName(text);
                 stageOfResumeByChatId.put(chatId, 3);
-                sendMsg(message, "2. Полный возраст.");
+                sendMsgWithoutKeyboard(message, "2. Полный возраст.");
                 break;
             case 3:
                 resumeByChatId.get(chatId).setAge(text);
                 stageOfResumeByChatId.put(chatId, 4);
-                sendMsg(message, "3. Действующий номер телефона.");
+                sendMsgWithoutKeyboard(message, "3. Действующий номер телефона.");
                 break;
             case 4:
                 resumeByChatId.get(chatId).setTelephone(text);
                 stageOfResumeByChatId.put(chatId, 5);
-                sendMsg(message, "4. Логин в Skype.");
+                sendMsgWithoutKeyboard(message, "4. Логин в Skype.");
                 break;
             case 5:
                 resumeByChatId.get(chatId).setSkypeLogin(text);
                 stageOfResumeByChatId.put(chatId, 0);
                 sendResumeToOwner(resumeByChatId.get(chatId));
-                sendMsg(message, "Резюме готово!");
+                sendMsg(message, "Анкета заполнена!");
                 break;
             default:
                 sendMsg(message,"Помощь в заполнении анкеты.");
@@ -165,6 +169,13 @@ public class Bot extends TelegramLongPollingBot {
         if (message.getFrom().getFirstName()!=null)
             return message.getFrom().getFirstName();
         return message.getFrom().toString();
+    }
+
+    private void sendResumesFromWebsite(){
+        for (Resume r:ResumesFromWebsiteHolder.getResumes()) {
+            sendResumeToOwner(r);
+        }
+        ResumesFromWebsiteHolder.getResumes().clear();
     }
 
     public String getBotUsername() {
